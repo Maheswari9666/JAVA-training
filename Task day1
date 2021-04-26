@@ -1,0 +1,86 @@
+
+SQL*Plus: Release 11.2.0.2.0 Production on Mon Apr 26 19:52:52 2021
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect system;
+Enter password:
+Connected.
+SQL> create user mydatabase identified by mydatabase;
+
+User created.
+
+SQL> grant dba to mydatabase;
+
+Grant succeeded.
+
+SQL> connect mydatabase/mydatabase;
+Connected.
+SQL> create table stock
+  2  (
+  3  name varchar(50),
+  4  id int,
+  5  batchno int,
+  6  country varchar(20)
+  7  );
+
+Table created.
+
+SQL> create table sales
+  2  (
+  3  salesname varchar(50),
+  4  productid int,
+  5  batchno int,
+  6  country varchar(20)
+  7  );
+
+Table created.
+
+SQL> create to_char(sysdate,'dd/mm/yyyy') from dual;
+create to_char(sysdate,'dd/mm/yyyy') from dual
+       *
+ERROR at line 1:
+ORA-00901: invalid CREATE command
+
+
+SQL> select to_char(sysdate,'dd/mm/yyyy') from dual;
+
+TO_CHAR(SY
+----------
+26/04/2021
+
+SQL> select sysdate from dual;
+
+SYSDATE
+---------
+26-APR-21
+
+SQL> select to_char(sysdate,'dd/mm/yyyy') from dual;
+
+TO_CHAR(SY
+----------
+26/04/2021
+
+SQL> select to_char(sysdate,'Day') as Day from dual;
+
+DAY
+------------------------------------
+Monday
+
+SQL> select sysdate+10 as "Date
+  2
+SQL> select sysdate
+  2
+SQL>
+SQL>
+SQL>
+SQL>
+SQL>
+SQL>
+SQL> select sysdate+10 as "Date+10" from dual;
+
+Date+10
+---------
+06-MAY-21
+
+SQL>
