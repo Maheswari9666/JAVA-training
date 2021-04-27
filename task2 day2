@@ -1,0 +1,91 @@
+
+SQL*Plus: Release 11.2.0.2.0 Production on Tue Apr 27 20:06:11 2021
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect system;
+Enter password:
+Connected.
+SQL> create table timetable
+  2  (
+  3  Day varchar(20),
+  4  Secession int,
+  5  Faculty varchar(20),
+  6  Sem varchar(20),
+  7  RoomNumber varchar(5),
+  8  SubjectName varchar(20),
+  9  unique(Day,Secession,Faculty),
+ 10  unique(Day,Secession,Sem),
+ 11  unique(Day,Secession,RoomNumber)
+ 12  );
+
+Table created.
+
+SQL>
+SQL>
+SQL> insert into timetable values('Monday',1,'john','7th','R1','java');
+
+1 row created.
+
+SQL> select *from timetable;
+
+DAY                   SECESSION FACULTY              SEM                  ROOMN
+-------------------- ---------- -------------------- -------------------- -----
+SUBJECTNAME
+--------------------
+Monday                        1 john                 7th                  R1
+java
+
+
+SQL> insert into timetable values('Monday',1,'john','5th','R2','testing');
+insert into timetable values('Monday',1,'john','5th','R2','testing')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SYSTEM.SYS_C007114) violated
+
+
+SQL> insert into timetable values('Monday',1,'cena','7th','R3','DBMS');
+insert into timetable values('Monday',1,'cena','7th','R3','DBMS')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SYSTEM.SYS_C007115) violated
+
+
+SQL> insert into timetable values('Tuesday',1,'john','7th','R1','java');
+
+1 row created.
+
+SQL> select *from timetable;
+
+DAY                   SECESSION FACULTY              SEM                  ROOMN
+-------------------- ---------- -------------------- -------------------- -----
+SUBJECTNAME
+--------------------
+Monday                        1 john                 7th                  R1
+java
+
+Tuesday                       1 john                 7th                  R1
+java
+
+
+SQL> insert into timetable values('Monday','2','john','7th','R1','java');
+
+1 row created.
+
+SQL>
+SQL> select *from timetable;
+
+DAY                   SECESSION FACULTY              SEM                  ROOMN
+-------------------- ---------- -------------------- -------------------- -----
+SUBJECTNAME
+--------------------
+Monday                        1 john                 7th                  R1
+java
+
+Tuesday                       1 john                 7th                  R1
+java
+
+Monday                        2 john                 7th                  R1
+java
+
+
