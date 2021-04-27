@@ -1,0 +1,158 @@
+
+SQL*Plus: Release 11.2.0.2.0 Production on Tue Apr 27 19:20:42 2021
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> connect system;
+Enter password:
+Connected.
+SQL> create table Employee
+  2  (
+  3  EmpFName varchar(50),
+  4  EmpMName varchar(50),
+  5  EmpLastName varchar(50),
+  6  EmpAge int check(EmpAge between 1 and 49),
+  7  EmpCity Varchar(20) check(EmpCity LIKE'B%'),
+  8  EmpDesignation varchar(20) check(EmpDesignation LIKE '%manager'),
+  9  EmpId varchar(5) check(EmpId Like 'emp%'),
+ 10  EmpDOB date,
+ 11  constraint pk primary key(EmpId)
+ 12  );
+
+Table created.
+
+SQL> insert into Employee values('Siva','Rama','Polineni',23,'Bhopal','sales manager','emp01','14-AUG-1997');
+
+1 row created.
+
+SQL> insert into Employee values('Uma','Mahi','Polineni',21,'Bangalore','acc manager','emp02','09-APR-2000');
+
+1 row created.
+
+SQL> insert into Employee values('Dhana','lucky','Narra',20,'Bhilai','sales manager','emp03','06-DEC-2001');
+
+1 row created.
+
+SQL> insert into Employee values('Venkat','Rama','Kommi',22,'Bareilly','acc manager','emp04','14-JAN-1998');
+
+1 row created.
+
+SQL> insert into Employee values('Raga','Sree','Vurumi',24,'Bhiwandi','sales manager','emp05','14-FEB-1996');
+
+1 row created.
+
+SQL>
+SQL> update Employee set EmpCity='Bhopal' where EmpId='emp03';
+
+1 row updated.
+
+SQL>
+SQL> delete from Employee where EmpId='emp05';
+
+1 row deleted.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> delete from employee;
+
+4 rows deleted.
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select *from Employee;
+
+EMPFNAME
+--------------------------------------------------
+EMPMNAME
+--------------------------------------------------
+EMPLASTNAME                                            EMPAGE
+-------------------------------------------------- ----------
+EMPCITY              EMPDESIGNATION       EMPID EMPDOB
+-------------------- -------------------- ----- ---------
+Siva
+Rama
+Polineni                                                   23
+Bhopal               sales manager        emp01 14-AUG-97
+
+
+EMPFNAME
+--------------------------------------------------
+EMPMNAME
+--------------------------------------------------
+EMPLASTNAME                                            EMPAGE
+-------------------------------------------------- ----------
+EMPCITY              EMPDESIGNATION       EMPID EMPDOB
+-------------------- -------------------- ----- ---------
+Uma
+Mahi
+Polineni                                                   21
+Bangalore            acc manager          emp02 09-APR-00
+
+
+EMPFNAME
+--------------------------------------------------
+EMPMNAME
+--------------------------------------------------
+EMPLASTNAME                                            EMPAGE
+-------------------------------------------------- ----------
+EMPCITY              EMPDESIGNATION       EMPID EMPDOB
+-------------------- -------------------- ----- ---------
+Dhana
+lucky
+Narra                                                      20
+Bhopal               sales manager        emp03 06-DEC-01
+
+
+EMPFNAME
+--------------------------------------------------
+EMPMNAME
+--------------------------------------------------
+EMPLASTNAME                                            EMPAGE
+-------------------------------------------------- ----------
+EMPCITY              EMPDESIGNATION       EMPID EMPDOB
+-------------------- -------------------- ----- ---------
+Venkat
+Rama
+Kommi                                                      22
+Bareilly             acc manager          emp04 14-JAN-98
+
+
+SQL> select EmpFName|| ' ' ||EmpMName||' '||EmpLastName as  EmpName, to_char(EmpDOB,'DD-mm-yyyy') as DOB from Employee;
+
+EMPNAME
+--------------------------------------------------------------------------------
+DOB
+----------
+Siva Rama Polineni
+14-08-1997
+
+Uma Mahi Polineni
+09-04-2000
+
+Dhana lucky Narra
+06-12-2001
+
+
+EMPNAME
+--------------------------------------------------------------------------------
+DOB
+----------
+Venkat Rama Kommi
+14-01-1998
+
+
+SQL>
+SQL> select substr(EmpFName,1,1)||'.'||substr(EmpMName,1,1)||'.'||EmpLastName as EmpName From Employee;
+
+EMPNAME
+------------------------------------------------------------
+S.R.Polineni
+U.M.Polineni
+D.l.Narra
+V.R.Kommi
+
+SQL>
