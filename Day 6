@@ -1,0 +1,53 @@
+
+public class VarArgs {
+	public static int sum(int ... x)
+	{
+		int total=0,max=x[0],min=x[0],even=0,odd=0,divby3=0;
+		int sum=0,max=x[0],min=x[0],even=0,odd=0,divby3=0;
+		for(int i:x)
+		{
+			total+=i;
+			sum+=i;
+			if(i>max)
+				max=i;
+			if(i<min)
+     public class VarArgs {
+				divby3++;
+		}
+		System.out.println("Max: "+max+"\nMin: "+min+"\nEven: "+even+"\nOdd:"+odd+"\nDivby3: "+divby3);
+		return total;
+		return sum;
+	}
+	public static void main(String[] args) {
+		System.out.println("Total: "+sum(2,3,4,5,6));
+	}
+}
+-----> reverse a given string 
+Example :  Hello
+output: olleH
+public class ReverseString {
+public static void main(String[] args) {
+	String org="Hello";
+	char[] ar= org.toCharArray();
+	for(int i=ar.length-1;i>=0;i--)		
+		System.out.print(ar[i]);
+}
+}
+---> reverse a given string and maintain its caps position
+EX:  
+input ->  HeLloWorld
+output-DlRowOlleh
+input ->  MyJavaWorld
+output-DlRoWaVajym
+public class StringRevUpperPosition {
+public static void main(String[] args) {
+	String org="HeLloWorld";
+	char[] ar= org.toCharArray();
+	int index=0;
+	for(int i=ar.length-1;i>=0;i--)	
+	{
+		if(ar[index]>96&&ar[index]<123)
+		{
+			if(ar[i]>64&&ar[i]<91)
+				System.out.print((char)(ar[i]+32));
+			els
