@@ -1,0 +1,143 @@
+SQL CODE FOR PLAYER
+ create table Player
+     (
+      PlayerName varchar(20),
+      PlayerRole varchar(20),
+      Playerstyle varchar(30),
+      PlayerTeam varchar(20)
+);
+insert into Player values('virat','BatsMan','Right Hand Bat','RCB');
+
+insert into Player values('Shahbaz Ahmed','All Rounder','Left Hand Bat/Right Hand Bat','RCB');
+      
+  insert into Player values('Dev','Bats Man','Left Hand Bat','RCB');
+   ---------------------------------------------------------------------------------------------------
+   package com.myproj.dbutil;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class DbConn {
+
+public static Connection dbConnect()
+{
+try{
+Class.forName("oracle.jdbc.OracleDriver");
+Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","mahi");
+return con;
+}
+catch (Exception e) {
+e.printStackTrace();
+return null;
+}
+}
+}
+-----------------------------------------------------------------------------------------------------------
+package com.myproj.model;
+
+public class Player {
+
+	 String PlayerName;
+	 String PlayerRole;
+	 String PlayerStyle;
+	 String PlayerTeam;
+	
+	 public String getPlayerName() {
+		return PlayerName;
+	}
+   public void setPlayerName(String playerName) {
+		PlayerName = playerName;
+	}
+
+   public String getPlayerRole() {
+		return PlayerRole;
+	}
+
+    public void setPlayerRole(String playerRole) {
+		PlayerRole = playerRole;
+	}
+
+    public String getPlayerStyle() {
+		return PlayerStyle;
+	}
+    public void setPlayerStyle(String playerStyle) {
+		PlayerStyle = playerStyle;
+	}
+   public String getPlayerTeam() {
+		return PlayerTeam;
+	}
+   public void setPlayerTeam(String playerTeam) {
+		PlayerTeam = playerTeam;
+	}
+   
+    public Player(String playerName, String playerRole, String playerStyle, String playerTeam) {
+	super();
+	this.PlayerName = playerName;
+	this.PlayerRole = playerRole;
+	this.PlayerStyle = playerStyle;
+	this.PlayerTeam = playerTeam;
+    }
+    public Player(){
+    	 }
+     @Override
+	public String toString() {
+		return "Player [PlayerName=" + PlayerName + ", PlayerRole=" + PlayerRole + ", PlayerStyle=" + PlayerStyle
+				+ ", PlayerTeam=" + PlayerTeam + "]";
+	}
+	 
+}
+
+-----------------------------------------------------------------------------------------------------------------
+package com.myproj.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import com.myproj.dbutil.DbConn;
+import com.myproj.model.Player;
+public class PlayerDao {
+public String savePlayer(Player  player)
+{
+try {
+String sql="insert into Player values(?,?,?,?)";
+
+Connection con= DbConn.dbConnect();
+PreparedStatement stat=con.prepareStatement(sql);
+
+stat.setString(1, player.getPlayerName());
+stat.setString(2, player.getPlayerRole());
+stat.setString(3, player.getPlayerStyle());
+stat.setString(4, player.getPlayerTeam());
+int res= stat.executeUpdate();
+
+if(res>0)
+return "recs inserted";
+
+}
+catch(Exception e)
+{
+
+e.printStackTrace();
+}
+
+
+return "cannot insert recs";
+}
+}
+---------------------------------------------------------------------------------------------
+package com.myproj.service;
+import com.myproj.dao.PlayerDao;
+import com.myproj.model.Player;
+public class PlayerService {
+
+
+
+public static void main(String[] args) {
+
+
+Player player=new Player("Rohit","BatsMan", "Right Hand Bat","Mi");
+PlayerDao dao=new PlayerDao();
+String res=dao.savePlayer(player);
+System.out.println(res);
+}
+}
+
